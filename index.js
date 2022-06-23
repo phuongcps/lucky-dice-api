@@ -7,7 +7,7 @@ const path = require ("path")
 const mongoose = require ('mongoose')
 
 const app = express ();
-const port = 8000;
+const port = 5000;
 
 app.use (timeRun)
 app.use (express.json())
