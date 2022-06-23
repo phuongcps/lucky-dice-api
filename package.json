@@ -1,0 +1,22 @@
+{
+  "name": "lucky-dice-api-nodejs",
+  "version": "1.0.0",
+  "description": "Lucky Dice Api",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Phuong NDD",
+  "license": "ISC",
+  "engines": {
+    "node": "16.x"
+  },
+  "dependencies": {
+    "express": "^4.18.1",
+    "mongoose": "^6.4.0",
+    "mongoose-simple-random": "^0.4.1",
+    "mongoose-unique-validator": "^3.1.0",
+    "nodemon": "^2.0.16"
+  }
+}

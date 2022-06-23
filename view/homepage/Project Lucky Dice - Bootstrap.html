@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>    
+    <title>Project Casino Dice</title>
+</head>
+
+<body onload="onPageLoading()">
+    <div class="container-fluid" style="background-image:url('image/cover.jpg');min-height:100px">
+    </div>
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-sm-5" id="user-info-input">
+                <div class="row form-group">
+                    <h4>Nhập thông tin của bạn</h4>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-4">
+                        <label class="form-label" for="input-user-name">Username <span class="text-danger">(*)</span></label>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="input-group">
+                            <div class="input-group-text">@</div>
+                            <input title="Username" data-checktype="required|min:6|max:15|username" data-property="userName" class="form-control" id="input-user-name" type="text" placeholder="Username ...">
+                            <div class="form-message small valid-feedback">Username hợp lệ</div>
+                            <div class="form-message small invalid-feedback"></div>
+                        </div> 
+                        <small class="form-message text-muted">
+                            Username không được bỏ trống <br>
+                            Xem quy tắc đặt username
+                            <a href="#user-info-input" onclick="alert(gUsernameRule)">
+                                tại đây
+                            </a>
+                        </small>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-4">
+                        <label for="input-first-name">First Name <span class="text-danger">(*)</span></label>
+                    </div>
+                    <div class="col-sm-8">
+                        <input title="Firstname" data-checktype="required|name" data-property="firstName" class="form-control" id="input-first-name" type="text" placeholder="First name ...">
+                        <div class="form-message small valid-feedback">Firstname hợp lệ</div>
+                        <div class="form-message small invalid-feedback"></div>
+                        <small class="form-text text-muted">Firstname không được để trống</small>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-4">
+                        <label for="input-last-name">Last Name <span class="text-danger">(*)</span></label>
+                    </div>
+                    <div class="col-sm-8">
+                        <input title="Lastname" data-checktype="required|name" data-property="lastName" class="form-control" id="input-last-name" type="text" placeholder="Last name ...">
+                        <div class="form-message small valid-feedback">Lastname hợp lệ</div>
+                        <div class="form-message small invalid-feedback"></div>
+                        <small class="form-text text-muted">Lastname không được để trống</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 text-center">
+                <div class="row form-group">
+                    <div class="col-sm-12">
+                        <button class="btn btn-success" id="button-casino-dice">Get New Dice</button>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-12">
+                        <img id="img-result-casino-dice" src="image/diceRound.gif" style="width:120px">
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-12">
+                        <p id="prize-result-casino-dice" class="overflow-auto text-break"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3 text-center">
+                <div class="row form-group">
+                    <div class="col-sm-12">
+                        <h4 class="text-danger">Voucher</h4>
+                        <img id="voucher-prize-img" src="image/voucher.png" alt="Voucher" class="w-50">
+                        <p id="voucher-prize-detail"></p>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-12">
+                        <h4 class="text-danger">Bonus Prize</h4>
+                        <img class="w-100" alt="Bonus Prize" src="image/no-present.jpg" id="bonus-prize-detail-img" style="display:block">
+                        <p id="bonus-prize-detail-text">Hãy quay số để nhận phần thưởng</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div id="button-history-data" class="col-sm-12 text-center">
+                <button title="dices" class="btn btn-success">Dice History</button>
+                <button title="voucher"class="btn btn-info">Voucher History</button>
+                <button title="prize"class="btn btn-info">Prize History</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <table id="table-history" class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Lượt đổ</th>
+                            <th>Dice</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+<script>
+    /*** REGION 1 - Global variables - Vùng khai báo biến, hằng số, tham số TOÀN CỤC */
+        var gUsernameRule = `1. Không được có dấu cách,chỉ 1 từ dính liền duy nhất \r\n` + 
+                            `2. Trong khoảng 6-15 ký tự và ký tự đầu không được là số\n`+
+                            `3. Tất cả các ký tự phải viết thường\n`+
+                            `4. Chỉ bao gồm chữ và số, không được chứa ký tự đặc biệt`
+    /*** REGION 2 - Vùng gán / thực thi hàm xử lý sự kiện cho các elements */
+    // gán sự kiện click cho nút button 
+    $("#button-casino-dice").on("click",onBtnRollDiceResult)
+
+    $("#button-history-data button").on("click",function(){
+        onBtnShowData(this.title)
+    })
+    
+    const gDATA_INPUT_REQUIRED_ELEMENT = $("#user-info-input [data-checktype]");
+    const gDATA_INPUT_REQUIRED_CLOSURE = storeInputHTML (...gDATA_INPUT_REQUIRED_ELEMENT)
+    gDATA_INPUT_REQUIRED_ELEMENT.each(function(index){
+        $(this).on("change blur",function() {
+            dynamicCheckDataForm (this,gDATA_INPUT_REQUIRED_CLOSURE)
+        })
+    })
+
+    /*** REGION 3 - Event handlers - Vùng khai báo các hàm xử lý sự kiện */
+    // hàm xử lý sự kiện khi load trang
+    function onPageLoading() {
+    }
+
+    function onBtnRollDiceResult() {
+        
+        // Khai báo cục bộ
+        var vUserInfo = {
+            userName : "",
+            firstName : "",
+            lastName : ""
+        };
+
+        // B1 : Thu thập data
+        getDataPlayerInput(vUserInfo);
+
+        // B2 : Validate data 
+        var vIsDataCheck = checkDataPlayer(vUserInfo);
+
+        // B3 : Call API 
+        var vXmlHttpDice = new XMLHttpRequest ();
+
+        if (vIsDataCheck == true) {
+            callApiDice(vUserInfo,vXmlHttpDice);
+        } else {return;}
+
+        // B4 : Xuất dữ liệu
+        vXmlHttpDice.addEventListener("readystatechange",function(){
+            if (this.readyState == 4 && this.status == 200){
+                handlersGetDiceResponse (vXmlHttpDice);
+            }
+        },false)
+    }
+    
+    function onBtnShowData (paramTypeData) {
+        
+        // Khai báo cục bộ
+        var vUserInfo = {
+            userName : "",
+            firstName : "",
+            lastName : ""
+        };
+
+        const vHISTORY_DATA = {
+            dices : ["dice-history","Game","Dice","dices"],
+            prize : ["prize-history","Game","Prize","prizes"],
+            voucher : ["voucher-history","Mã giảm giá","Phần trăm giảm giá","vouchers"]
+        }
+
+        var vHistoryDataDetail = vHISTORY_DATA[paramTypeData];
+        var vUrlCall = "http://42.115.221.44:8080/devcamp-lucky-dice/"+ vHistoryDataDetail[0] + "?username=" ;
+        var vHistoryTypeDataDetail = vHISTORY_DATA[paramTypeData][3];
+
+
+        // B1 : Thu thập data
+        getDataPlayerInput(vUserInfo);
+
+        // B2 : Validate 
+        var vIsDataCheck = checkDataPlayer(vUserInfo);
+
+        // B3 : Call API
+        var vXmlHttpDice = new XMLHttpRequest ();
+        if (vIsDataCheck == true) {
+            callApiHistory(vUserInfo,vXmlHttpDice,vUrlCall);
+        } else {return;}
+
+        // B4 : Export data
+        vXmlHttpDice.onreadystatechange =
+            function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    changeTableShowData (vHistoryDataDetail[1],vHistoryDataDetail[2]);
+                    deleteOldTable ();
+                    var vDataReturn = JSON.parse(vXmlHttpDice.responseText);
+                    extractDataToTable (vDataReturn,vHistoryTypeDataDetail);
+                }
+            }
+    }
+
+    /*** REGION 4 - Common funtions - Vùng khai báo hàm dùng chung trong toàn bộ chương trình*/
+    
+    function getDataPlayerInput (paramUserInfo) {
+        $("#user-info-input").each(function(){
+            paramUserInfo[this.dataset.property] = this.value;
+        })
+    }
+   
+    function checkDataPlayer (paramUserInfo) {
+        try {
+            let bInputError = "";
+
+            gDATA_INPUT_REQUIRED_ELEMENT.each(function(index){
+
+                // Invalid form bootstrap 4 , nested function , closure 
+                // dynamicCheckDataForm (element,checktype,title)
+                dynamicCheckDataForm (this,gDATA_INPUT_REQUIRED_CLOSURE)
+            });
+
+            // Check data lỗi
+            bInputError = checkDataValid (gDATA_INPUT_REQUIRED_CLOSURE.getAllElement(),gDATA_INPUT_REQUIRED_CLOSURE)
+
+            if (bInputError) {
+                throw (bInputError);
+            }
+        }
+        catch (err) {
+           alert (err);
+           return false;
+        }
+        return true;
+   }
+
+    function callApiDice (paramUserInfo,paramXmlHttp) {        
+        
+        var vPersonJsonData = JSON.stringify(paramUserInfo);
+
+        paramXmlHttp.open("POST", "http://42.115.221.44:8080/devcamp-lucky-dice/dice", true);
+        paramXmlHttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        paramXmlHttp.send(vPersonJsonData);
+    }
+
+    function callApiHistory (paramUserInfo,paramXmlHttp,paramUrlCall) {        
+        
+        paramXmlHttp.open("GET", paramUrlCall + paramUserInfo.userName, true);
+        paramXmlHttp.send();
+
+    }
+
+    function handlersGetDiceResponse (paramDiceRespond) {
+        var vBonusPrizeObject = {
+            "Ô tô" : ["image/car.jpg","Phần thưởng bonus của bạn là : Ô tô"],
+            "Mũ" : ["image/mu.jpg","Phần thưởng bonus của bạn là : Mũ"],
+            "Áo" : ["image/ao.jpg","Phần thưởng bonus của bạn là : Áo"],
+            "Xe máy" : ["image/xe-may.jpg","Phần thưởng bonus của bạn là : Xe máy"],
+            "null" : ["image/no-present.jpg","Hãy quay thêm để nhận được phần thưởng nhé"]
+        }
+
+        var vResponse = JSON.parse(paramDiceRespond.responseText);
+        console.log (JSON.stringify(vResponse));
+        var vNumberResult = vResponse.dice;
+
+        var vResultDetailObject = {
+            win : function() {
+                    $("#prize-result-casino-dice").append("Chúc mừng bạn. Đây là phần thưởng của bạn");
+                    $("#voucher-prize-detail").html(`Mã voucher : ${vResponse.voucher.maVoucher}<br>`+
+                                                    `Phần trăm giảm giá : ${vResponse.voucher.phanTramGiamGia}%`);
+                    $("#voucher-prize-img").attr("src","image/voucher.png");
+                },
+
+            lose : function() {
+                    $("#prize-result-casino-dice").append("Cảm ơn bạn. Hãy cố gắng lần sau");
+                    $("#voucher-prize-detail").html(``);
+                    $("#voucher-prize-img").attr("src","image/no-present.jpg");
+                },
+        }
+
+        $("#img-result-casino-dice").attr("src",`image/${vNumberResult}.png`);
+        $("#bonus-prize-detail-img").attr("src",vBonusPrizeObject[vResponse.prize][0]);
+        $("#bonus-prize-detail-text").html(vBonusPrizeObject[vResponse.prize][1]);
+        $("#prize-result-casino-dice").html(`Bạn đã đổ ra ${vNumberResult} nút. `);
+
+        vNumberResult > 3 ? vResultDetailObject.win() : vResultDetailObject.lose();
+    }
+
+    function changeTableShowData (paramTHead1,paramTHead2) {
+
+        var vTableHead = $("#table-history thead th")
+        vTableHead[0].innerHTML = paramTHead1;
+        vTableHead[1].innerHTML = paramTHead2;
+    }
+
+    function deleteOldTable () {
+        // var vTableData = document.getElementById("table-history");
+        // for (var bIndex = vTableData.rows.length - 1; bIndex > 0; bIndex--){
+        //     vTableData.deleteRow(bIndex);
+        // }
+
+        // Cách 2 
+        $("#table-history tbody").empty();
+
+    }
+
+    function extractDataToTable (paramDataAPI,paramHistoryTypeData) {
+        var vTableBody = $("#table-history tbody")[0];
+        var vDataDetailObject = {
+            prizes : function (paramNumber) {return [Number(paramNumber)+1,paramDataAPI.prizes[paramNumber]]},
+            vouchers : function (paramNumber) {return [paramDataAPI.vouchers[paramNumber].maVoucher,paramDataAPI.vouchers[paramNumber].phanTramGiamGia]},
+            dices : function (paramNumber) {return [Number(paramNumber)+1,paramDataAPI.dices[paramNumber]]}
+        }
+        
+          for (let bIndex in paramDataAPI[paramHistoryTypeData]) {
+            var bNewRow = vTableBody.insertRow(-1);
+            var bNewIDRow = bNewRow.insertCell(0);
+            var bNewData = bNewRow.insertCell(1);
+            var bDataReturn = vDataDetailObject[paramHistoryTypeData](bIndex);
+            bNewIDRow.innerHTML = bDataReturn[0];
+            bNewData.innerHTML = bDataReturn[1];
+          }
+ 
+    }
+
+function checkDataValid (paramElementCheck,paramAllElement,paramInputObj) {
+  const vElementCheck = [...paramElementCheck];
+  let vErrorDetail = {
+    required : (value,title) => 
+              !value ? `${title} chưa được điền hoặc chọn` : "",
+
+    email : (value,title) => 
+            !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value) ? 
+            `${title} nhập vào không hợp lệ` : "",
+
+    name : (value,title) => !/^[\p{L}\s]+[\p{L}]\s?$/u.test(value) ? 
+    `${title} nhập vào không hợp lệ (Chỉ gồm chữ, không có số và ký tự đặc biệt)` : "",
+
+    phone : (value,title) => !/^[0]{1}[35789]{1}[0-9]{8}$/.test(value) ? 
+            `${title} nhập vào không hợp lệ` : "",
+
+    min : (number,value,title) => value.length < number ? 
+          `${title} phải có ít nhất ${number} ký tự` : "",
+
+    max : (number,value,title) => value.length > number ? 
+          `${title} chỉ có nhiều nhất ${number} ký tự` : "",
+
+    username : (value,title) => !/^[a-z]{1}[a-z0-9]{5,14}$/.test(value) ? `${title} không hợp lệ` : "",
+
+    password : (value,title) => !value ? `${title} không hợp lệ` : "",
+
+    passwordrecheck : (value,recheckvalue,title) => value != recheckvalue ? 
+                      `${title} và password phải trùng khớp nhau` : "", 
+
+    // Updating
+  };
+
+  var vErrorCheck = "";
+
+  paramElementCheck.forEach((value) => {
+    let bIndex = paramAllElement.findIndexElementByNode(value);
+    let bCheckType = paramAllElement.getAttributeValue(bIndex,"data-checktype");
+    let bTitle = paramAllElement.getAttributeValue(bIndex,"title");
+    let bValueCheck = value.value.trim();
+    let bError = "";
+    let bCheckTypeDetail = bCheckType.split("|");
+    let bCheckIndex = 0;
+
+    while (!bError && bCheckIndex < bCheckTypeDetail.length) {
+      if (bCheckTypeDetail[bCheckIndex].includes(":") == true) {     
+        var bTypeWithNumber = bCheckTypeDetail[bCheckIndex].split(":");
+        bError = vErrorDetail[bTypeWithNumber[0]](bTypeWithNumber[1],bValueCheck,bTitle);
+        vErrorCheck += bError ? bError + `\n` : "";
+      } else {
+          bError = vErrorDetail[bCheckTypeDetail[bCheckIndex]](bValueCheck,bTitle);
+          vErrorCheck += bError ? bError + `\n` : "";
+      }
+      bCheckIndex ++ ;
+    };
+  });
+  return vErrorCheck;
+}
+
+function dynamicCheckDataForm (paramElement,paramAllElement) {
+  var vResult = "";
+  paramElement.classList.remove("is-invalid");
+  paramElement.classList.remove("is-valid")
+    vResult = checkDataValid ([paramElement],paramAllElement)
+    if (vResult) {
+      paramElement.classList.add("is-invalid");
+      $(paramElement).parent().children(".invalid-feedback").html(vResult);
+      return;
+    } 
+  paramElement.classList.add("is-valid");
+}
+
+// Closure ứng dụng
+function storeInputHTML () {
+  // argument không phải là 1 Array mà chỉ look-like array nên phải dùng spread ES6 để chuyển lại thành array
+  const vInputElement = [...arguments];
+  const vAllAttributeElement = vInputElement.map((element) => {
+    var bAllAttributeObj = {};
+    element.getAttributeNames().forEach((attributeName) =>
+      bAllAttributeObj[attributeName] = element.getAttribute(attributeName));
+    return bAllAttributeObj;
+  });
+  const vTitleValueElement = vInputElement.map((element) => element.title);
+  const vIdValueElement = vInputElement.map((element) => element.id);
+
+  const vGetAttributeElement = {
+    getAllElementJquery : () => $(vInputElement),
+    getAllElement : () => vInputElement,
+    getInput : (index) => vInputElement[index], 
+    getAttributeValue : (index,attribute) => vAllAttributeElement[index][attribute],
+    findIndexByAttributeExactValue : (attribute,value) => vAllAttributeElement.findIndex(allAttribute => allAttribute[attribute] == value),
+    findIndexByAttributeContainValue : (attribute,value) => vAllAttributeElement.findIndex(allAttribute => allAttribute[attribute].includes(value) == true),
+    findIndexElementByNode : (element) => vInputElement.findIndex((allElement) => allElement.isSameNode(element) == true)
+  }
+
+  return vGetAttributeElement;
+}
+
+</script>
+</html>
