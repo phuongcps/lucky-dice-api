@@ -57,6 +57,7 @@ app.get("/",(req,res) => {
     res.send ("Welcome to Heroku")
 })
 
-// app.listen(port, () => {
-//     console.log (`App đang chạy trên port ${port} . Thời gian bắt đầu chạy là ${new Date()}`)
-// })
+app.listen(process.env.PORT || 3000, () => {
+    // console.log (`App đang chạy trên port ${port} . Thời gian bắt đầu chạy là ${new Date()}`)
+    console.log("Running")
+})
