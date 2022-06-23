@@ -18,5 +18,14 @@
     "mongoose-simple-random": "^0.4.1",
     "mongoose-unique-validator": "^3.1.0",
     "nodemon": "^2.0.16"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phuongcps/lucky-dice-api.git"
+  },
+  "bugs": {
+    "url": "https://github.com/phuongcps/lucky-dice-api/issues"
+  },
+  "homepage": "https://github.com/phuongcps/lucky-dice-api#readme"
 }
