@@ -54,7 +54,7 @@ app.use (express.static(`${__dirname}/view/homepage`))
 app.get("/",(req,res) => {
     //console.log("test")
     res.sendFile(path.join(`${__dirname}/view/homepage/Project Lucky Dice - Bootstrap.html`))
-    res.send ("Welcome to Heroku")
+    res.send ("Welcome to Heroku - Phương")
 })
 
 app.listen(process.env.PORT || 3000, () => {
