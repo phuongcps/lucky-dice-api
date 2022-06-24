@@ -17,32 +17,32 @@ app.use (express.urlencoded({
 }))
 
 
-mongoose.connect("mongodb://localhost:27017/lucky_dice_casino",(err) => {
-    if (err) throw err;
-    console.log("Kết nối mongoose thành công")
-});
+// mongoose.connect("mongodb://localhost:27017/lucky_dice_casino",(err) => {
+//     if (err) throw err;
+//     console.log("Kết nối mongoose thành công")
+// });
 
 // const URL = 'mongodb+srv://mongo-user:<password>@cluster-mongo-test.ieqay.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
-// const URL = "mongodb+srv://phuongcellphones:Phuong93@cluster0.yq190va.mongodb.net/my-mongo-db-phuong?retryWrites=true&w=majority"
+const URL = "mongodb+srv://phuongcellphones:Phuong93@cluster0.yq190va.mongodb.net/my-mongo-db-phuong?retryWrites=true&w=majority"
 
-// const connectDB = async () => {
-//   try {
-//     await mongoose.connect(
-//       URL,
-//       { 
-//         useNewUrlParser: true,
-//         useUnifiedTopology: true
-//       }
-//     )
+const connectDB = async () => {
+  try {
+    await mongoose.connect(
+      URL,
+      { 
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+      }
+    )
 
-//     console.log('Connected to mongoDB')
-//   } catch (error) {
-//     console.log(error)
-//     process.exit(1)
-//   }
-// }
+    console.log('Connected to mongoDB')
+  } catch (error) {
+    console.log(error)
+    process.exit(1)
+  }
+}
 
-// connectDB()
+connectDB()
 app.use(cors())
 app.use("/users",routerPath("userRouter"))
 app.use("/dices-detail-history",routerPath("diceHistoryRouter"))
