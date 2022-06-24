@@ -48,7 +48,7 @@ app.use("/users",routerPath("userRouter"))
 app.use("/dices-detail-history",routerPath("diceHistoryRouter"))
 app.use("/prizes",routerPath("prizeRouter"))
 app.use("/vouchers",routerPath("voucherRouter"))
-app.use("/roll",routerPath("rollRouter"))
+app.use("/",routerPath("rollRouter"))
 
 app.use (express.static(`${__dirname}/view/homepage`))
 
@@ -60,5 +60,5 @@ app.get("/",(req,res) => {
 
 app.listen(process.env.PORT || 3000, () => {
     // console.log (`App đang chạy trên port ${port} . Thời gian bắt đầu chạy là ${new Date()}`)
-    console.log("Running")
+    console.log(`Running on port ${process.env.PORT}`)
 })

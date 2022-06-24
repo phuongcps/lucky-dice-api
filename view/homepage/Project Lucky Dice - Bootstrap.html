@@ -173,11 +173,11 @@
         } else {return;}
 
         // B4 : Xuất dữ liệu
-        vXmlHttpDice.addEventListener("readystatechange",function(){
-            if (this.readyState == 4 && this.status == 201){
-                handlersGetDiceResponse (vXmlHttpDice);
-            }
-        },false)
+        // vXmlHttpDice.addEventListener("readystatechange",function(){
+        //     if (this.readyState == 4 && this.status == 201){
+        //         handlersGetDiceResponse (vXmlHttpDice);
+        //     }
+        // },false)
     }
     
     function onBtnShowData (paramTypeData) {
@@ -196,7 +196,7 @@
         }
 
         var vHistoryDataDetail = vHISTORY_DATA[paramTypeData];
-        var vUrlCall = "http://42.115.221.44:8080/devcamp-lucky-dice/"+ vHistoryDataDetail[0] + "?username=" ;
+        var vUrlCall = "https://lucky-dice-app.herokuapp.com/"+ vHistoryDataDetail[0] + "?userName=" ;
         var vHistoryTypeDataDetail = vHISTORY_DATA[paramTypeData][3];
 
 
@@ -257,13 +257,27 @@
         return true;
    }
 
-    function callApiDice (paramUserInfo,paramXmlHttp) {        
-        console.log(paramUserInfo)
-        var vPersonJsonData = JSON.stringify(paramUserInfo);
+    function callApiDice (paramUserInfo,paramXmlHttp) {    
+        
+        // $.ajax({
+        //     url : "https://lucky-dice-app.herokuapp.com/roll/roll",
+        //     method : "POST",
+        //     dataType : "json",
+        //     async : false,
+        //     data : JSON.stringify(paramUserInfo),
+        //     contentType : "application/json;charset=UTF-8",
+        //     success : json => handlersGetDiceResponse (json),
+        //     error : err => console.log (err)
+        // })
 
-        paramXmlHttp.open("POST", "https://lucky-dice-app.herokuapp.com/roll/roll", true);
-        paramXmlHttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-        paramXmlHttp.send(vPersonJsonData);
+        fetch("https://lucky-dice-app.herokuapp.com/roll/",{
+            method : "POST",
+            headers : {
+                "Content-Type" : "application/json;charset=UTF-8"
+            },
+            body : JSON.stringify(paramUserInfo)
+        }).then (value => {console.log(value) ; return value.json()})
+          .then (json => handlersGetDiceResponse (json))
     }
 
     function callApiHistory (paramUserInfo,paramXmlHttp,paramUrlCall) {        
@@ -282,8 +296,8 @@
             "null" : ["image/no-present.jpg","Hãy quay thêm để nhận được phần thưởng nhé"]
         }
 
-        var vResponse = JSON.parse(paramDiceRespond.responseText);
-        console.log (JSON.stringify(vResponse));
+        var vResponse = paramDiceRespond;
+        console.log (vResponse);
         var vNumberResult = vResponse.dice;
 
         var vResultDetailObject = {

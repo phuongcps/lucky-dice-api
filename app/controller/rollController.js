@@ -107,7 +107,9 @@ const getVoucherHistory = async (req,res) => {
     await userModel.findOne({userName}).exec().then(value => userId = value)
 
     diceHistoryModel.find({user : userId,voucher : {$ne : null}}).populate("voucher","-_id").exec((err,data) => {
-        res.status(200).json(data.map(each => each.voucher))
+        res.status(200).json({
+            vouchers : data.map(each => each.voucher)
+        })
     })
 }
 
@@ -120,7 +122,9 @@ const getPrizeHistory = async (req,res) => {
     await userModel.findOne({userName}).exec().then(value => userId = value)
 
     diceHistoryModel.find({user : userId,prize : {$ne : null}}).populate("prize","-_id").exec((err,data) => {
-        res.status(200).json(data.map(each => each.prize.name))
+        res.status(200).json({
+            prizes: data.map(each => each.prize.name)
+        })
     })
 }
 
