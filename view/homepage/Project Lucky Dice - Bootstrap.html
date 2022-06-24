@@ -227,7 +227,7 @@
     /*** REGION 4 - Common funtions - Vùng khai báo hàm dùng chung trong toàn bộ chương trình*/
     
     function getDataPlayerInput (paramUserInfo) {
-        $("#user-info-input").each(function(){
+        $("#user-info-input input").each(function(){
             paramUserInfo[this.dataset.property] = this.value;
         })
     }
@@ -258,10 +258,10 @@
    }
 
     function callApiDice (paramUserInfo,paramXmlHttp) {        
-        
+        console.log(paramUserInfo)
         var vPersonJsonData = JSON.stringify(paramUserInfo);
 
-        paramXmlHttp.open("POST", "https://lucky-dice-app.herokuapp.com/roll", true);
+        paramXmlHttp.open("POST", "https://lucky-dice-app.herokuapp.com/roll/roll", true);
         paramXmlHttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
         paramXmlHttp.send(vPersonJsonData);
     }
