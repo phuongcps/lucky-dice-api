@@ -1,6 +1,6 @@
 const express = require ("express");
 const {timeRun} = require("./app/middle/middle");
-const cors = require ("cors"); // npm install cors
+const cors = require ("cors")
 function routerPath (name) {
     return require(`./app/router/${name}`)
 }
@@ -43,12 +43,12 @@ const connectDB = async () => {
 }
 
 connectDB()
-//app.use(cors())
+app.use(cors())
 app.use("/users",routerPath("userRouter"))
 app.use("/dices-detail-history",routerPath("diceHistoryRouter"))
 app.use("/prizes",routerPath("prizeRouter"))
 app.use("/vouchers",routerPath("voucherRouter"))
-app.use("/",routerPath("rollRouter"))
+app.use("/roll",routerPath("rollRouter"))
 
 app.use (express.static(`${__dirname}/view/homepage`))
 
