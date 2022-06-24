@@ -1,5 +1,6 @@
 const express = require ("express");
 const {timeRun} = require("./app/middle/middle");
+const cors = require ("cors"); // npm install cors
 function routerPath (name) {
     return require(`./app/router/${name}`)
 }
@@ -42,7 +43,7 @@ const connectDB = async () => {
 }
 
 connectDB()
-
+app.use(cors())
 app.use("/users",routerPath("userRouter"))
 app.use("/dices-detail-history",routerPath("diceHistoryRouter"))
 app.use("/prizes",routerPath("prizeRouter"))
