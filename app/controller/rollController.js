@@ -72,6 +72,7 @@ const rollDice = async (req,res) => {
     apiModel.create(diceHistoryData)
 
     let result = {
+        id : diceHistoryData._id,
         dice : diceResult,
         voucher : diceResult <= 3 ? null : {
             maVoucher: voucherResult.maVoucher,
