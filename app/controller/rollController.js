@@ -11,8 +11,9 @@ const rollDice = async (req,res) => {
         return Math.floor(Math.random() * 6 + 1)
     }
     
-    function getRandomVoucher () {
-        return new Promise ((response,rej) => voucherModel.findRandom({},"maVoucher phanTramGiamGia",{limit:1},(err,result) => response(result)))
+    function getRandomVoucher (value) {
+        console.log(value)
+        return new Promise ((response,rej) => voucherModel.findRandom({phanTramGiamGia : (10*value > 50 ? 50 : 10*value)},"maVoucher phanTramGiamGia",{limit:1},(err,result) => response(result)))
     }
     
     function getRandomPrize () {
@@ -52,10 +53,10 @@ const rollDice = async (req,res) => {
         voucherResult = null;
         bonusPrize = 0;
     } else {
-        await getRandomVoucher().then(value => voucherResult = value[0]);
         await apiModel.find({user : userResult._id}).sort({_id:"desc"}).limit(1).exec().then((data) => {
             bonusPrize = data.length != 0 ? ++ data[0].bonusPrize : 1;
         })
+        await getRandomVoucher(bonusPrize).then(value => voucherResult = value[0]);
     }
 
     bonusPrize >= 3 ? await getRandomPrize().then(value => prizeResult = value) : prizeResult = null;

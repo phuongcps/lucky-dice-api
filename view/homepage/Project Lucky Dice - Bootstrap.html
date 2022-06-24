@@ -62,11 +62,30 @@
                         <small class="form-text text-muted">Lastname không được để trống</small>
                     </div>
                 </div>
+                <div class="row form-group">
+                    <div class="col-sm-12">
+                        <button class="btn btn-success" id="button-casino-dice">Bắt đầu quay</button>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-3">
+                        Luật chơi
+                    </div>
+                    <div class="col-sm-9">
+                        <ul>
+                            <li>Nếu kết quả &lt;= 3 : Bạn sẽ không nhận được gì cả</li>
+                            <li>Nếu kết quả &gt;= 4 : : Bạn sẽ nhận được phần thưởng là một voucher</li>
+                            <li>Giá trị Voucher sẽ là 10 x Số lần liên tiếp bạn quay có kết quả >= 4 (Ví dụ : Bạn quay 2 lần liên tiếp >= 4 thì lần 2 sẽ nhận được voucher có giá trị là 20%, lần 3 sẽ là 30%</li>
+                            <li>Giá trị voucher tối đa nhận được là 50%</li>
+                            <li>Ngoài ra bạn sẽ nhận được phần thưởng đặc biệt khi quay liên tiếp 3 lần có kết quả >= 4</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
             <div class="col-sm-4 text-center">
                 <div class="row form-group">
                     <div class="col-sm-12">
-                        <button class="btn btn-success" id="button-casino-dice">Get New Dice</button>
+
                     </div>
                 </div>
                 <div class="row form-group">
@@ -79,8 +98,6 @@
                         <p id="prize-result-casino-dice" class="overflow-auto text-break"></p>
                     </div>
                 </div>
-            </div>
-            <div class="col-sm-3 text-center">
                 <div class="row form-group">
                     <div class="col-sm-12">
                         <h4 class="text-danger">Voucher</h4>
@@ -91,14 +108,30 @@
                 <div class="row form-group">
                     <div class="col-sm-12">
                         <h4 class="text-danger">Bonus Prize</h4>
-                        <img class="w-100" alt="Bonus Prize" src="image/no-present.jpg" id="bonus-prize-detail-img" style="display:block">
+                        <img class="w-50 rounded mx-auto d-block" alt="Bonus Prize" src="image/no-present.jpg" id="bonus-prize-detail-img" style="display:block">
                         <p id="bonus-prize-detail-text">Hãy quay số để nhận phần thưởng</p>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-sm-3 text-center">
+                <div class="row form-group">
+                    <div class="col-sm-12">
+                        <h4>Tra cứu kết quả đã quay tại đây</h4>
+                    </div>
+                    <input type="text" class="form-control mb-3" placeholder="Điền Id result cần check vào đây">
+                    <div class="col-sm-12 text-center">
+                        <button class="btn btn-success">Tra cứu</button>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row form-group">
-            <div id="button-history-data" class="col-sm-12 text-center">
+        <div class="row form-group my-5">
+            <div id="button-history-data" class="col-sm-12 text-center my-3">
+                <p class="h2">Thống kê lịch sử quay theo userName</p> 
+            </div>
+            <input type="text" class="form-control mb-3" placeholder="Điền userName cần check vào đây">
+            <div id="button-history-data" class="col-sm-12 text-center mt-2">
                 <button title="dices" class="btn btn-success">Dice History</button>
                 <button title="voucher"class="btn btn-info">Voucher History</button>
                 <button title="prize"class="btn btn-info">Prize History</button>
@@ -318,7 +351,7 @@
         $("#img-result-casino-dice").attr("src",`image/${vNumberResult}.png`);
         $("#bonus-prize-detail-img").attr("src",vBonusPrizeObject[vResponse.prize][0]);
         $("#bonus-prize-detail-text").html(vBonusPrizeObject[vResponse.prize][1]);
-        $("#prize-result-casino-dice").html(`Bạn đã đổ ra ${vNumberResult} nút. `);
+        $("#prize-result-casino-dice").html(`<b> Id result </b> : ${vResponse.id} <br> <br> Bạn đã đổ ra ${vNumberResult} nút. `);
 
         vNumberResult > 3 ? vResultDetailObject.win() : vResultDetailObject.lose();
     }
