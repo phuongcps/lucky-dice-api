@@ -174,7 +174,7 @@
 
         // B4 : Xuất dữ liệu
         vXmlHttpDice.addEventListener("readystatechange",function(){
-            if (this.readyState == 4 && this.status == 200){
+            if (this.readyState == 4 && this.status == 201){
                 handlersGetDiceResponse (vXmlHttpDice);
             }
         },false)
@@ -261,7 +261,7 @@
         
         var vPersonJsonData = JSON.stringify(paramUserInfo);
 
-        paramXmlHttp.open("POST", "https://lucky-dice-app.herokuapp.com/roll", true);
+        paramXmlHttp.open("POST", "http://42.115.221.44:8080/devcamp-lucky-dice/dice", true);
         paramXmlHttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
         paramXmlHttp.send(vPersonJsonData);
     }
