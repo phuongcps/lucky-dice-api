@@ -299,6 +299,10 @@
                         return res.json()
                       })
                 .then (result => {
+                    if (result[paramTypeData].length == 0 ) {
+                        alert ("Không tồn tại data với User này")
+                        return
+                    }
                     exportDataToTable (paramTypeData,result[paramTypeData])
                 })
                 .catch (err => alert (err))
