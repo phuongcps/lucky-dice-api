@@ -12,7 +12,6 @@ const rollDice = async (req,res) => {
     }
     
     function getRandomVoucher (value) {
-        console.log(value)
         return new Promise ((response,rej) => voucherModel.findRandom({phanTramGiamGia : (10*value > 50 ? 50 : 10*value)},"maVoucher phanTramGiamGia",{limit:1},(err,result) => response(result)))
     }
     
@@ -95,7 +94,10 @@ const getDiceHistory = async (req,res) => {
 
     diceHistoryModel.find({user : userId}).exec((err,data) => {
         res.status(200).json({
-            dices: data.map(each => each.dice)
+            dices: data.map(each => {return {
+                dice : each.dice,
+                id : each._id
+            }})
         })
     })
 }
@@ -108,9 +110,13 @@ const getVoucherHistory = async (req,res) => {
     let userId;
     await userModel.findOne({userName}).exec().then(value => userId = value)
 
-    diceHistoryModel.find({user : userId,voucher : {$ne : null}}).populate("voucher","-_id").exec((err,data) => {
+    diceHistoryModel.find({user : userId,voucher : {$ne : null}}).select("voucher _id").populate("voucher","maVoucher phanTramGiamGia -_id").exec((err,data) => {
         res.status(200).json({
-            vouchers : data.map(each => each.voucher)
+            vouchers : data.map(each => {return {
+                    id: each._id,
+                    voucher : each.voucher
+                }
+            })
         })
     })
 }
@@ -125,7 +131,11 @@ const getPrizeHistory = async (req,res) => {
 
     diceHistoryModel.find({user : userId,prize : {$ne : null}}).populate("prize","-_id").exec((err,data) => {
         res.status(200).json({
-            prizes: data.map(each => each.prize.name)
+            prizes: data.map(each => { return {
+                    id :each._id,
+                    prize : each.prize.name
+                }
+            })
         })
     })
 }

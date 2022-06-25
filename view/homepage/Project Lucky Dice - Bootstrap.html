@@ -5,9 +5,19 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Datatable-->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap4.min.css">
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="./image/dice-favicon.jpg"> 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>    
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!--Kit Font Awesome-->
+    <script src="https://kit.fontawesome.com/e1df1c9386.js" crossorigin="anonymous"></script>
+    <!-- Datatable -->
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap4.min.js"></script>
     <title>Project Casino Dice</title>
 </head>
 <style>
@@ -36,12 +46,24 @@
     body.loading .loading-bar { /* body loading class , appear loading bar */
         display: block;
     }
+
+    .welcome {
+        background:url('image/cover.jpg') rgba(255,255,255,0.5);
+        background-blend-mode: overlay;
+
+        min-height:100px;
+    }
 </style>
 <body onload="onPageLoading()">
 <div class="background">
-    <div class="container-fluid" style="background-image:url('image/cover.jpg');min-height:100px">
+    <div class="container-fluid welcome"> 
     </div>
     <div class="container mt-3">
+        <div class="row form-group">
+            <div class="col-sm-12 text-center text-primary">
+                <p class="h1">Welcome to Lucky Dice</p>
+            </div>
+        </div>
         <div class="row">
             <div class="col-sm-5" id="user-info-input">
                 <div class="row form-group">
@@ -141,52 +163,66 @@
                 </div>
 
             </div>
-            <div class="col-sm-3 text-center">
-                <div class="row form-group">
-                    <div class="col-sm-12">
+            <div class="col-sm-3" id="dice-detail-history">
+                <div class="row">
+                    <div class="col-sm-12 text-center">
                         <h4>Tra cứu kết quả đã quay tại đây</h4>
                     </div>
                     <input type="text" class="form-control mb-3" placeholder="Điền Id result cần check vào đây">
-                    <div class="col-sm-12 text-center">
+                    <div class="col-sm-12 text-center mb-4">
                         <button class="btn btn-success">Tra cứu</button>
                     </div>
+                    <div class="col-sm-12" id="dice-result-field" style="display:none;">
+                        <p title="_id"></p>
+                        <p title="dice">&#9673; Kết quả quay</p>
+                        <p title="voucher">&#9673; Voucher</p>
+                        <p title="prize">&#9673; Phần thưởng khác</p>
+                    </div>
                 </div>
+
             </div>
         </div>
         <div class="row form-group my-5">
             <div id="button-history-data" class="col-sm-12 text-center my-3">
                 <p class="h2">Thống kê lịch sử quay theo userName</p> 
             </div>
-            <input type="text" class="form-control mb-3" placeholder="Điền userName cần check vào đây">
+            <input id="inp-history-data-username" type="text" class="form-control mb-3" placeholder="Điền userName cần check vào đây">
             <div id="button-history-data" class="col-sm-12 text-center mt-2">
                 <button title="dices" class="btn btn-success">Dice History</button>
-                <button title="voucher"class="btn btn-info">Voucher History</button>
-                <button title="prize"class="btn btn-info">Prize History</button>
+                <button title="vouchers"class="btn btn-info">Voucher History</button>
+                <button title="prizes"class="btn btn-info">Prize History</button>
             </div>
         </div>
-        <div class="row">
+        <div class="row p-5">
             <div class="col-sm-12">
-                <table id="table-history" class="table table-striped table-hover">
-                    <thead>
-                        <tr>
-                            <th>Lượt đổ</th>
-                            <th>Dice</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    </tbody>
+                <table id="table-history" class="table table-striped table-hover w-100">
                 </table>
             </div>
         </div>
     </div>
+    <div class="container-fluid bg-warning p-3">
+        <div class="row text-center">
+            <div class="col-sm-12 p-3">
+                <h4 class="m-2">Footer</h4>
+                <a href="#" class="btn btn-dark m-3"><i class="fa fa-arrow-up"></i>To the top</a>
+                <div class="m-2">
+                    <i class="fa fa-facebook-official w3-hover-opacity"></i>
+                    <i class="fa fa-instagram w3-hover-opacity"></i>
+                    <i class="fa fa-snapchat w3-hover-opacity"></i>
+                    <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+                    <i class="fa fa-twitter w3-hover-opacity"></i>
+                    <i class="fa fa-linkedin w3-hover-opacity"></i>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <p class="text-center text-primary"> <b>Copyright &copy; 2021-<script>document.write(new Date().getFullYear())</script> - Lucky Dice -  All Rights Reserved</b></p>
+            </div>
+        </div>
+    </div>
 </div>
+
 <div class="loading-bar"></div>
 <script>
-    document.body.className="loading";
     /*** REGION 1 - Global variables - Vùng khai báo biến, hằng số, tham số TOÀN CỤC */
         var gUsernameRule = `1. Không được có dấu cách,chỉ 1 từ dính liền duy nhất \r\n` + 
                             `2. Trong khoảng 6-15 ký tự và ký tự đầu không được là số\n`+
@@ -200,6 +236,10 @@
         onBtnShowData(this.title)
     })
     
+    $("#dice-detail-history button").on("click",function(){
+        onBtnHistoryDetail()
+    })
+
     const gDATA_INPUT_REQUIRED_ELEMENT = $("#user-info-input [data-checktype]");
     const gDATA_INPUT_REQUIRED_CLOSURE = storeInputHTML (...gDATA_INPUT_REQUIRED_ELEMENT)
     gDATA_INPUT_REQUIRED_ELEMENT.each(function(index){
@@ -207,15 +247,15 @@
             dynamicCheckDataForm (this,gDATA_INPUT_REQUIRED_CLOSURE)
         })
     })
-    document.body.className="";
 
     /*** REGION 3 - Event handlers - Vùng khai báo các hàm xử lý sự kiện */
     // hàm xử lý sự kiện khi load trang
     function onPageLoading() {
+        document.body.className="loading";
+        document.body.className="";
     }
 
     function onBtnRollDiceResult() {
-        document.body.className="loading";
         // Khai báo cục bộ
         var vUserInfo = {
             userName : "",
@@ -230,62 +270,50 @@
         var vIsDataCheck = checkDataPlayer(vUserInfo);
 
         // B3 : Call API 
-        var vXmlHttpDice = new XMLHttpRequest ();
-
-        if (vIsDataCheck == true) {
-            callApiDice(vUserInfo,vXmlHttpDice);
-        } else {return;}
-
-        // B4 : Xuất dữ liệu
-        // vXmlHttpDice.addEventListener("readystatechange",function(){
-        //     if (this.readyState == 4 && this.status == 201){
-        //         handlersGetDiceResponse (vXmlHttpDice);
-        //     }
-        // },false)
+        vIsDataCheck ? callApiDice(vUserInfo) : "";
     }
     
     function onBtnShowData (paramTypeData) {
         
         // Khai báo cục bộ
-        var vUserInfo = {
-            userName : "",
-            firstName : "",
-            lastName : ""
-        };
+        var userName = $("#inp-history-data-username").val()
 
-        const vHISTORY_DATA = {
-            dices : ["dice-history","Game","Dice","dices"],
-            prize : ["prize-history","Game","Prize","prizes"],
-            voucher : ["voucher-history","Mã giảm giá","Phần trăm giảm giá","vouchers"]
+        if (!userName) {
+            alert("Chưa điền username")
+        } else {
+            getHistoryData(paramTypeData,userName)
         }
 
-        var vHistoryDataDetail = vHISTORY_DATA[paramTypeData];
-        var vUrlCall = "https://lucky-dice-app.herokuapp.com/"+ vHistoryDataDetail[0] + "?userName=" ;
-        var vHistoryTypeDataDetail = vHISTORY_DATA[paramTypeData][3];
-
-
-        // B1 : Thu thập data
-        getDataPlayerInput(vUserInfo);
-
-        // B2 : Validate 
-        var vIsDataCheck = checkDataPlayer(vUserInfo);
-
-        // B3 : Call API
-        var vXmlHttpDice = new XMLHttpRequest ();
-        if (vIsDataCheck == true) {
-            callApiHistory(vUserInfo,vXmlHttpDice,vUrlCall);
-        } else {return;}
-
-        // B4 : Export data
-        vXmlHttpDice.onreadystatechange =
-            function () {
-                if (this.readyState == 4 && this.status == 200) {
-                    changeTableShowData (vHistoryDataDetail[1],vHistoryDataDetail[2]);
-                    deleteOldTable ();
-                    var vDataReturn = JSON.parse(vXmlHttpDice.responseText);
-                    extractDataToTable (vDataReturn,vHistoryTypeDataDetail);
-                }
+        async function getHistoryData(paramTypeData,paramUserName) {
+            const vHISTORY_DATA = {
+                dices : "dice-history",
+                prizes : "prize-history",
+                vouchers : "voucher-history"
             }
+            let status = 404;
+
+            document.body.className="loading"
+            await fetch (`https://lucky-dice-app.herokuapp.com/${vHISTORY_DATA[paramTypeData]}?userName=${paramUserName}`)
+                .then (res => {
+                        status = res.status;
+                        return res.json()
+                      })
+                .then (result => {
+                    exportDataToTable (paramTypeData,result[paramTypeData])
+                })
+                .catch (err => alert (err))
+
+            document.body.className=""
+        }
+    }
+
+    function onBtnHistoryDetail () {
+        var idResult = $("#dice-detail-history input").val();
+        if (!idResult) {
+            alert ("Chưa điền Id result")
+        } else {
+            callApiDiceDetail (idResult)
+        }
     }
 
     /*** REGION 4 - Common funtions - Vùng khai báo hàm dùng chung trong toàn bộ chương trình*/
@@ -315,40 +343,70 @@
             }
         }
         catch (err) {
-           alert (err);
            return false;
         }
         return true;
    }
 
-    function callApiDice (paramUserInfo,paramXmlHttp) {    
+    async function callApiDice (paramUserInfo) {    
         
-        // $.ajax({
-        //     url : "https://lucky-dice-app.herokuapp.com/roll/roll",
-        //     method : "POST",
-        //     dataType : "json",
-        //     async : false,
-        //     data : JSON.stringify(paramUserInfo),
-        //     contentType : "application/json;charset=UTF-8",
-        //     success : json => handlersGetDiceResponse (json),
-        //     error : err => console.log (err)
-        // })
-
-        fetch("https://lucky-dice-app.herokuapp.com/roll/",{
+        document.body.className="loading";
+        await fetch("https://lucky-dice-app.herokuapp.com/roll/",{
             method : "POST",
             headers : {
                 "Content-Type" : "application/json;charset=UTF-8"
             },
             body : JSON.stringify(paramUserInfo)
-        }).then (value => {console.log(value) ; return value.json()})
+        }).then (value => value.json())
           .then (json => handlersGetDiceResponse (json))
+        document.body.className="";
     }
 
-    function callApiHistory (paramUserInfo,paramXmlHttp,paramUrlCall) {        
-        
-        paramXmlHttp.open("GET", paramUrlCall + paramUserInfo.userName, true);
-        paramXmlHttp.send();
+    async function callApiDiceDetail (paramId) {
+        let status = 404;
+        document.body.className="loading";
 
+        await fetch(`https://lucky-dice-app.herokuapp.com/dices-detail-history/${paramId}`)
+            .then(res => {
+                status = res.status ;
+                return res.json()
+            })
+            .then(result => {
+                if (status != 200) {
+                    alert (result.message);
+                    $("#dice-result-field").hide()
+                } else if (!result) {
+                    alert ("Không tìm thấy kết quả với Id trên")
+                    $("#dice-result-field").hide()
+                } else {
+                    $("#dice-result-field").show()
+                    exportDataToField (result)
+                }
+            })
+            .catch(err => {
+                alert(err.message)
+                $("#dice-result-field").hide();
+            })
+
+        document.body.className=""
+
+        function exportDataToField(paramResult) {
+            let voucherDetail = "Không có";
+            let prizeDetail = "Không có";
+
+            if (paramResult.voucher) {
+                voucherDetail = `<ul><li>Mã voucher : ${paramResult.voucher.maVoucher}</li><li>Giảm giá : ${paramResult.voucher.phanTramGiamGia}%</li></ul>`
+            }
+
+            if (paramResult.prize) {
+                prizeDetail = paramResult.prize.name
+            }
+
+            $("#dice-result-field [title=_id]").html(`&#9673; Id : ${paramResult._id}`)
+            $("#dice-result-field [title=dice]").html(`&#9673; Kết quả quay : ${paramResult.dice} nút`)
+            $("#dice-result-field [title=voucher]").html(`&#9673; Voucher : ${voucherDetail}`)
+            $("#dice-result-field [title=prize]").html(`&#9673; Phần thưởng khác : ${prizeDetail}`)
+        }    
     }
 
     function handlersGetDiceResponse (paramDiceRespond) {
@@ -385,46 +443,91 @@
         $("#prize-result-casino-dice").html(`<b> Id result </b> : ${vResponse.id} <br> <br> Bạn đã đổ ra ${vNumberResult} nút. `);
 
         vNumberResult > 3 ? vResultDetailObject.win() : vResultDetailObject.lose();
-        document.body.className="";
-
     }
 
-    function changeTableShowData (paramTHead1,paramTHead2) {
+    function exportDataToTable (paramDataType,paramResult) {
+        DataTable.isDataTable('#table-history') ? $("#table-history").DataTable().clear().destroy() : "";
+        $("#table-history").html("");
 
-        var vTableHead = $("#table-history thead th")
-        vTableHead[0].innerHTML = paramTHead1;
-        vTableHead[1].innerHTML = paramTHead2;
-    }
+        var dataType = {
+            dices : [
+                {data : "id",title : "Id",filterType:"input"},
+                {data : "dice",title : "Dice",filterType:"input"}
+            ],
+            prizes : [
+                {data : "id",title : "Id",filterType:"input"},
+                {data : "prize",title: "Giải thưởng",filterType:"input"}
 
-    function deleteOldTable () {
-        // var vTableData = document.getElementById("table-history");
-        // for (var bIndex = vTableData.rows.length - 1; bIndex > 0; bIndex--){
-        //     vTableData.deleteRow(bIndex);
-        // }
-
-        // Cách 2 
-        $("#table-history tbody").empty();
-
-    }
-
-    function extractDataToTable (paramDataAPI,paramHistoryTypeData) {
-        var vTableBody = $("#table-history tbody")[0];
-        var vDataDetailObject = {
-            prizes : function (paramNumber) {return [Number(paramNumber)+1,paramDataAPI.prizes[paramNumber]]},
-            vouchers : function (paramNumber) {return [paramDataAPI.vouchers[paramNumber].maVoucher,paramDataAPI.vouchers[paramNumber].phanTramGiamGia]},
-            dices : function (paramNumber) {return [Number(paramNumber)+1,paramDataAPI.dices[paramNumber]]}
+            ],
+            vouchers : [
+                {data : "id",title : "Id",filterType:"input"},
+                {data : "voucher.maVoucher",title : "Mã Voucher",filterType:"input"},
+                {data : "voucher.phanTramGiamGia",title : "Phần trăm giảm giá",filterType:"input"},
+            ]
         }
-        
-          for (let bIndex in paramDataAPI[paramHistoryTypeData]) {
-            var bNewRow = vTableBody.insertRow(-1);
-            var bNewIDRow = bNewRow.insertCell(0);
-            var bNewData = bNewRow.insertCell(1);
-            var bDataReturn = vDataDetailObject[paramHistoryTypeData](bIndex);
-            bNewIDRow.innerHTML = bDataReturn[0];
-            bNewData.innerHTML = bDataReturn[1];
-          }
- 
+
+        var gUserTable = $("#table-history").DataTable({
+            columns : dataType[paramDataType],
+            scrollX : true,
+            scrollY : "500px",
+            scrollCollapse : true,
+            lengthMenu : [[15, 20, 25, 50, 100, -1], [15, 20, 25, 50, 100, "All"]],
+            columnDefs : [
+                {"className": "dt-center", "targets": "_all"}
+            ],
+            initComplete : function () {
+                var api = this.api();
+                $(api.table().footer()).empty()
+                $(api.table().header()).find("tr:eq(0)").clone().appendTo($(api.table().footer()));
+                $(api.table().header()).find("tr:eq(0)").clone().appendTo($(api.table().header()));
+                $(api.table().header()).find("tr:eq(1) th").each(function(bIndex){
+                let bType = $(api.settings())[0].aoColumns[bIndex].filterType;
+                $(this).removeClass("sorting sorting_asc sorting_desc");
+                switch (bType) {
+                    case "input" : {
+                    $(this).html(`<input type="text" class="form-control form-control-sm text-center" style="font-family: 'FontAwesome', Helvetica Neue" placeholder="&#xf002; Tìm">`)
+                            .on("keyup"," :input",function(){
+                                api.column($(this).parent().index()).search(this.value.trim()).draw();
+                            });
+                    } 
+                break;
+                    case "select" : {
+                    var bOptionData = $(api.settings())[0].aoColumns[bIndex].filterData;
+                    var bOption = ``;
+                    if(bOptionData) {for (let bValue of bOptionData) {
+                        bOption += `<option value=${bValue[0]}>${bValue[1]}</option>\n`
+                    }}
+                    $(this).html(`<select class="form-control form-control-sm text-left" style="font-family: 'FontAwesome', Helvetica Neue"></select>`)
+                            .on("change","select",function(){
+                                var regex = this.value == "" ? "" : '^\\b' + this.value + '\\b$'
+                                api.column($(this).parent().index()).search(regex,true,false).draw();
+                            })
+                            .find("select")
+                            .append(`<option selected disabled hidden>&#xf0d7; Chọn</option>`)
+                            .append($("<option/>",{html: "Tất cả", val : ""}))
+                            .append(bOption)
+                    };
+                break;
+                    default : {
+                    $(this).html(``)
+                    };
+                }
+                });
+
+                $(window).on("resize",function(){
+                    setTimeout(() => {api.columns.adjust()},500)
+                })
+            }
+        })
+
+        loadDataToTable(gUserTable,paramResult)
     }
+
+function loadDataToTable (paramTable,paramData) {
+    paramTable.clear();
+    paramTable.rows.add(paramData);
+    paramTable.draw();
+}
 
 function checkDataValid (paramElementCheck,paramAllElement,paramInputObj) {
   const vElementCheck = [...paramElementCheck];

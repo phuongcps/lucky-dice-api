@@ -23,14 +23,8 @@ const diceHistorySchema = new Schema ({
         type : Number,
         default : 0
     },
-    createAt : {
-        type : Date,
-        default : Date.now()
-    },
-    updatedAt : {
-        type : Date,
-        default : Date.now()
-    }
-},{ versionKey: false })
+    createdAt : Number,
+    updatedAt : Number
+},{ versionKey: false , timestamps : true })
 
 module.exports = mongoose.model("DiceHistory",diceHistorySchema)

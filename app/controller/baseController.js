@@ -67,7 +67,7 @@ function updateArrayObjectRelatedAfterDelete (model,field,id) {
 
 function checkIdModel (id,res) {
     if(!mongoose.Types.ObjectId.isValid(id)) {
-        res.status(400).json({message : "Id invalid"})
+        res.status(400).json({message : "Id không hợp lệ . Hãy kiểm tra lại Id"})
         return false;  
     }
     return true

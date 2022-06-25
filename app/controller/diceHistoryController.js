@@ -1,20 +1,20 @@
 const mongoose = require ("mongoose");
 const apiModel = require("../model/diceHistoryModel")
-const { baseGetController, baseDeleteController } = require("./baseController")
+const { baseGetController, baseDeleteController,checkIdModel } = require("./baseController")
 
 const getAllCRUD = (req,res) => {
     let user = req.query.user
     let condition = {}
 
     user ? condition.user = user : {};
-    apiModel.find(condition).populate([{path:"user",select : "userName -_id"},{path : "voucher",select : "code discount -_id"},{path : "prize",select : "name -_id"}]).exec(baseGetController(req,res))
+    apiModel.find(condition).populate([{path:"user",select : "userName -_id"},{path : "voucher",select : "maVoucher phanTramGiamGia -_id"},{path : "prize",select : "name -_id"}]).exec(baseGetController(req,res))
 }
 
 const getCRUDById = (req,res) => {
     let id = req.params.id;
     // Kiẻm tra dữ liệu 
     if(!checkIdModel (id,res)) {return;}
-    apiModel.findById(id,baseGetController(req,res));
+    apiModel.findById(id).select("-bonusPrize -createdAt -updatedAt").populate([{path : "voucher", select : "maVoucher phanTramGiamGia -_id"},{path : "prize",select : "name -_id"}]).exec(baseGetController(req,res));
 }
 
 const createCRUD = (req,res) => {
