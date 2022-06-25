@@ -10,8 +10,35 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>    
     <title>Project Casino Dice</title>
 </head>
+<style>
+    .background {
+        background: url(image/bg.jpg) rgba(255, 255, 255, 0.85);
+        background-blend-mode: overlay;
+    }
+    .loading-bar {
+        display: none; /* by default hidden */
+        position: fixed;
+        z-index: 1000000; /* always on top */
+        left: 0;
+        top : 0;
+        width: 100%;
+        height: 100%; /* full screen */
+        background-image: url("./image/loading.gif");
+        background-position: 50% 50%; /* center */
+        background-color: rgba(255,255,255,0.8) /* transpacy */;
+        background-repeat: no-repeat;
+    }
 
+    body.loading { /* when body loading class */
+        overflow: hidden; /* hide scrolling bar */
+    }
+
+    body.loading .loading-bar { /* body loading class , appear loading bar */
+        display: block;
+    }
+</style>
 <body onload="onPageLoading()">
+<div class="background">
     <div class="container-fluid" style="background-image:url('image/cover.jpg');min-height:100px">
     </div>
     <div class="container mt-3">
@@ -156,7 +183,10 @@
             </div>
         </div>
     </div>
+</div>
+<div class="loading-bar"></div>
 <script>
+    document.body.className="loading";
     /*** REGION 1 - Global variables - Vùng khai báo biến, hằng số, tham số TOÀN CỤC */
         var gUsernameRule = `1. Không được có dấu cách,chỉ 1 từ dính liền duy nhất \r\n` + 
                             `2. Trong khoảng 6-15 ký tự và ký tự đầu không được là số\n`+
@@ -177,6 +207,7 @@
             dynamicCheckDataForm (this,gDATA_INPUT_REQUIRED_CLOSURE)
         })
     })
+    document.body.className="";
 
     /*** REGION 3 - Event handlers - Vùng khai báo các hàm xử lý sự kiện */
     // hàm xử lý sự kiện khi load trang
@@ -184,7 +215,7 @@
     }
 
     function onBtnRollDiceResult() {
-        
+        document.body.className="loading";
         // Khai báo cục bộ
         var vUserInfo = {
             userName : "",
@@ -354,6 +385,8 @@
         $("#prize-result-casino-dice").html(`<b> Id result </b> : ${vResponse.id} <br> <br> Bạn đã đổ ra ${vNumberResult} nút. `);
 
         vNumberResult > 3 ? vResultDetailObject.win() : vResultDetailObject.lose();
+        document.body.className="";
+
     }
 
     function changeTableShowData (paramTHead1,paramTHead2) {
