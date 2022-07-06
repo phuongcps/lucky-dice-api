@@ -1,1 +1,3 @@
-Đây là Project Lucky Dice
+﻿Đây là Project Lucky Dice
+
+## Tính năng chính
