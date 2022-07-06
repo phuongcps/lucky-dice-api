@@ -1,3 +1,3 @@
-﻿#### Project Lucky Dice
+﻿## Project Lucky Dice
 
-## Tính năng chính
+# Tính năng chính
