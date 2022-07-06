@@ -1,36 +1,37 @@
 const express = require ("express");
-const morgan = require ("morgan")
-const {timeRun} = require("./app/middle/middle");
-const cors = require ("cors")
-const database = require('./config/database')
-function routerPath (name) {
-    return require(`./router/${name}`)
-}
-const path = require ("path")
-
 const app = express ();
-const port = 5000;
-
-app.use(morgan("combined"))
-
-//app.use (timeRun)
-app.use (express.json())
-app.use (express.urlencoded({
-    extended:true
-}))
-
-database.connect();
+// const morgan = require ("morgan")
+// const {timeRun} = require("./app/middle/middle");
+// const cors = require ("cors")
+// const database = require('./config/database')
+// function routerPath (name) {
+//     return require(`./router/${name}`)
+// }
+// const path = require ("path")
 
 
+// const port = 5000;
 
-app.use(cors())
-app.use("/users",routerPath("userRouter"))
-app.use("/dices-detail-history",routerPath("diceHistoryRouter"))
-app.use("/prizes",routerPath("prizeRouter"))
-app.use("/vouchers",routerPath("voucherRouter"))
-app.use("/roll",routerPath("rollRouter"))
+// app.use(morgan("combined"))
 
-app.use (express.static(`${__dirname}/resources/view/homepage`))
+// //app.use (timeRun)
+// app.use (express.json())
+// app.use (express.urlencoded({
+//     extended:true
+// }))
+
+// database.connect();
+
+
+
+// app.use(cors())
+// app.use("/users",routerPath("userRouter"))
+// app.use("/dices-detail-history",routerPath("diceHistoryRouter"))
+// app.use("/prizes",routerPath("prizeRouter"))
+// app.use("/vouchers",routerPath("voucherRouter"))
+// app.use("/roll",routerPath("rollRouter"))
+
+// app.use (express.static(`${__dirname}/resources/view/homepage`))
 
 app.get("/",(req,res) => {
     //console.log("test")
