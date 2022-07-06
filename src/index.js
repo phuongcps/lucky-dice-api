@@ -30,11 +30,11 @@ app.use("/prizes",routerPath("prizeRouter"))
 app.use("/vouchers",routerPath("voucherRouter"))
 app.use("/",routerPath("rollRouter"))
 
-app.use (express.static(`${__dirname}/view/homepage`))
+app.use (express.static(`${__dirname}/resources/view/homepage`))
 
 app.get("/",(req,res) => {
     //console.log("test")
-    res.sendFile(path.join(`${__dirname}/view/homepage/Project Lucky Dice - Bootstrap.html`))
+    res.sendFile(path.join(`${__dirname}/resources/view/homepage/Project Lucky Dice - Bootstrap.html`))
     //res.send ("Welcome to Heroku - Phương")
 })
 
