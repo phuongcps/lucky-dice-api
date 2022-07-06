@@ -16,7 +16,7 @@ const mongoose = require('mongoose');
 // const URL = 'mongodb+srv://mongo-user:<password>@cluster-mongo-test.ieqay.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 const URL = "mongodb+srv://phuongcellphones:Phuong93@cluster0.yq190va.mongodb.net/my-mongo-db-phuong?retryWrites=true&w=majority";
 
-async function connect2 () {
+async function connect () {
   try {
     await mongoose.connect(
       URL,
