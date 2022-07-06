@@ -7,7 +7,7 @@ const app = express ();
 // function routerPath (name) {
 //     return require(`./router/${name}`)
 // }
-// const path = require ("path")
+const path = require ("path")
 
 
 // const port = 5000;
@@ -31,11 +31,11 @@ const app = express ();
 // app.use("/vouchers",routerPath("voucherRouter"))
 // app.use("/roll",routerPath("rollRouter"))
 
-// app.use (express.static(`${__dirname}/resources/view/homepage`))
+app.use (express.static(`${__dirname}/resources/view/homepage`))
 
 app.get("/",(req,res) => {
     //console.log("test")
-    //res.sendFile(path.join(`${__dirname}/resources/view/homepage/Project Lucky Dice - Bootstrap.html`))
+    res.sendFile(path.join(`${__dirname}/resources/view/homepage/Project Lucky Dice - Bootstrap.html`))
     res.send ("Welcome to Heroku - Phương")
 })
 
