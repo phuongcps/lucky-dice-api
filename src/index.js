@@ -1,6 +1,6 @@
 const express = require ("express");
 const app = express ();
-const morgan = require ("morgan")
+//const morgan = require ("morgan")
 const {timeRun} = require("./app/middle/middle");
 const cors = require ("cors")
 const database = require('./config/database')
@@ -12,7 +12,7 @@ const path = require ("path")
 
 const port = 5000;
 
-app.use(morgan("combined"))
+//app.use(morgan("combined"))
 
 //app.use (timeRun)
 app.use (express.json())
