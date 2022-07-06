@@ -1,3 +1,3 @@
-﻿Đây là Project Lucky Dice
+﻿#### Project Lucky Dice
 
 ## Tính năng chính
