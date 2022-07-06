@@ -5,7 +5,7 @@ const uniqueValidator = require('mongoose-unique-validator');
 
 
 const voucherSchema = new Schema ({
-    _id : Schema.Types.ObjectId, // Không có cũng được
+    //_id : Schema.Types.ObjectId, // Không có cũng được
     maVoucher: {
         type : String,
         required : [true,"Chưa nhập {PATH} - Mã giảm giá"],

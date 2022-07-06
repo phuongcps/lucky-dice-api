@@ -1,14 +1,17 @@
 const express = require ("express");
+const morgan = require ("morgan")
 const {timeRun} = require("./app/middle/middle");
 const cors = require ("cors")
+const database = require('./config/database')
 function routerPath (name) {
-    return require(`./app/router/${name}`)
+    return require(`./router/${name}`)
 }
 const path = require ("path")
-const mongoose = require ('mongoose')
 
 const app = express ();
 const port = 5000;
+
+app.use(morgan("combined"))
 
 //app.use (timeRun)
 app.use (express.json())
@@ -16,33 +19,10 @@ app.use (express.urlencoded({
     extended:true
 }))
 
+database.connect();
 
-// mongoose.connect("mongodb://localhost:27017/lucky_dice_casino",(err) => {
-//     if (err) throw err;
-//     console.log("Kết nối mongoose thành công")
-// });
 
-// const URL = 'mongodb+srv://mongo-user:<password>@cluster-mongo-test.ieqay.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
-const URL = "mongodb+srv://phuongcellphones:Phuong93@cluster0.yq190va.mongodb.net/my-mongo-db-phuong?retryWrites=true&w=majority"
 
-const connectDB = async () => {
-  try {
-    await mongoose.connect(
-      URL,
-      { 
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-      }
-    )
-
-    console.log('Connected to mongoDB')
-  } catch (error) {
-    console.log(error)
-    process.exit(1)
-  }
-}
-
-connectDB()
 app.use(cors())
 app.use("/users",routerPath("userRouter"))
 app.use("/dices-detail-history",routerPath("diceHistoryRouter"))

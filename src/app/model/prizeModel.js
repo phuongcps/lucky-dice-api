@@ -7,7 +7,6 @@ const uniqueValidator = require('mongoose-unique-validator');
 
 
 const prizeSchema = new Schema ({
-    _id : Schema.Types.ObjectId,
     name : {
         type : String,
         required : [true,"Chưa nhập tên phần thuỏng"],
