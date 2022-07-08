@@ -69,18 +69,18 @@ class RollController {
         }
     
         apiModel.create(diceHistoryData)
-    
-        let result = {
-            id : diceHistoryData._id,
-            dice : diceResult,
-            voucher : diceResult <= 3 ? null : {
-                maVoucher: voucherResult.maVoucher,
-                phanTramGiamGia : voucherResult.phanTramGiamGia
-            },
-            prize : prizeResult ? prizeResult.name : null
-        }
-    
-        res.status(201).json(result);
+            .then(value => {
+                let result = {
+                    id : value._id,
+                    dice : diceResult,
+                    voucher : diceResult <= 3 ? null : {
+                        maVoucher: voucherResult.maVoucher,
+                        phanTramGiamGia : voucherResult.phanTramGiamGia
+                    },
+                    prize : prizeResult ? prizeResult.name : null
+                }
+                res.status(201).json(result);
+            }) 
     }
     
     async getDiceHistory (req,res) {
