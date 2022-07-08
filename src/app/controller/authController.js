@@ -90,7 +90,9 @@ class AuthController {
     }
 
     logout (req,res) {
-
+        req.session.destroy()
+        req.flash("success","Đăng xuất thành công")
+        res.redirect("/auth/login")
     }
 
     forgetPage (req,res) {
