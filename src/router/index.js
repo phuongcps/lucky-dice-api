@@ -8,7 +8,7 @@ const authRouter = require('./authRouter')
 
 function route (app) {
     //Apply Cors
-    //app.use(cors())
+    app.use(cors())
 
     app.use("/users",userRouter)
     app.use("/dices-detail-history",diceHistoryRouter)

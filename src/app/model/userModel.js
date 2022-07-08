@@ -21,23 +21,13 @@ const userSchema = new Schema ({
     password : {
         type : String,
         required : true,
-        default : "123456"
     },
-    createAt : {
-        type : Date,
-        default : Date.now()
-    },
-    updatedAt : {
-        type : Date,
-        default : Date.now()
-    }
-},{ versionKey: false })
+    createdAt : Number,
+    updatedAt : Number,
+},{ versionKey: false,timestamps :true })
 
 userSchema.methods.toJSON = function() {
     let obj = this.toObject();
-    delete obj.createAt;
-    delete obj.updatedAt;
-    delete obj.__v;
     return obj;
 }
 
