@@ -33,7 +33,6 @@ class RollController {
         await new Promise ((success,failed) => {userModel.findOne({userName : user.userName}).exec((err,data) => {
             if (data === null) {
                 let body = {
-                    _id : mongoose.Types.ObjectId(),
                     ...user
                 }
                 userModel.create(body,(err,data) => {
@@ -62,7 +61,6 @@ class RollController {
         bonusPrize >= 3 ? await getRandomPrize().then(value => prizeResult = value) : prizeResult = null;
     
         let diceHistoryData = {
-            _id : mongoose.Types.ObjectId(),
             user : userResult._id,
             dice : diceResult,
             voucher : voucherResult ? voucherResult._id : null,

@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="row form-group justify-content-center">
+        <div class="col-sm-4">
+            <h4 class="text-center">Đăng ký tài khoản</h4>
+            <form id="login-form" method="post" class="mb-3">
+                <input type="text" name="userName" class="form-control my-3" placeholder="Username" required>
+                <input type="text" name="firstName" class="form-control my-3" placeholder="First Name" required>
+                <input type="text" name="lastName" class="form-control my-3" placeholder="Last Name" required>
+                <input type="password" name="password" class="form-control my-3" placeholder="Password" required>
+                <input type="password" class="form-control my-3" name="passwordConfirmation" placeholder="Password Confirmation" required>
+                <div class="text-center">
+                    <button type="submit" class="justify-content-center btn btn-success">Đăng ký tài khoản</button>
+                </div>
+            </form>
+            {{#if hasErrors}}
+            {{#each messages}}
+            <div class="bg-danger my-2">
+                <span class="text-white" id="check">{{this}}</span>
+            </div>
+            {{/each}}
+            {{/if}}
+            <div>
+                <span>Bạn đã có tài khoản ?</span>
+                <a href="/auth/login">Đăng nhập</a>
+            </div>
+        </div>
+    </div>
+</div>

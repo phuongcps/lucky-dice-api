@@ -3,9 +3,15 @@ const app = express ();
 //const morgan = require ("morgan")
 const database = require('./config/database')
 const route = require('./router/index.js')
+const { engine } = require('express-handlebars');
+const session = require('./config/auth/session');
+const passport = require('./config/auth/passport');
+
+const methodOverride = require('method-override')
+
 
 const path = require ("path")
-const port = 3000;
+const port = 9000;
 
 //app.use(morgan("combined"))
 
@@ -18,13 +24,32 @@ app.use (express.urlencoded({
 // Connect Mongoose
 database.connect();
 
+// Template engine
+app.engine('hbs',engine({
+    extname:'hbs'
+}));
+app.set('view engine','hbs');
+app.set('views',path.join(__dirname, 'resources', 'views'))
+app.use(express.static('src/public'))
+app.use(methodOverride("_method"))
+
+// Setup session
+session(app);
+
+//Connect and Setup Passport
+passport(app);
+
 // Route Setting
 route(app)
 
-app.use (express.static(`${__dirname}/resources/view/homepage`))
 app.get("/",(req,res) => {
+    if (req.session.passport) {
+        res.render("home",{firstName : req.user.firstName,lastName : req.user.lastName})
+    } else {
+        res.redirect("/auth/login")
+    }
     //console.log("test")
-    res.sendFile(path.join(`${__dirname}/resources/view/homepage/Project Lucky Dice - Bootstrap.html`))
+    //res.sendFile(path.join(`${__dirname}/resources/views/homepage/Project Lucky Dice - Bootstrap.html`))
     //res.send ("Welcome to Heroku - Phương")
 })
 
