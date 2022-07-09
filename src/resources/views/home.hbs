@@ -2,74 +2,64 @@
         <div class="row">
             <div class="col-sm-5" id="user-info-input">
                 <div class="row form-group">
-                    <h4>Nhập thông tin của bạn</h4>
-                </div>
-                <div class="row form-group">
-                    <div class="col-sm-4">
-                        <label class="form-label" for="input-user-name">Username <span class="text-danger">(*)</span></label>
-                    </div>
-                    <div class="col-sm-8">
-                        <div class="input-group">
-                            <div class="input-group-text">@</div>
-                            <input title="Username" data-checktype="required|min:6|max:15|username" data-property="userName" class="form-control" id="input-user-name" type="text" placeholder="Username ...">
-                            <div class="form-message small valid-feedback">Username hợp lệ</div>
-                            <div class="form-message small invalid-feedback"></div>
-                        </div> 
-                        <small class="form-message text-muted">
-                            Username không được bỏ trống <br>
-                            Xem quy tắc đặt username
-                            <a href="#user-info-input" onclick="alert(gUsernameRule)">
-                                tại đây
-                            </a>
-                        </small>
-                    </div>
-                </div>
-                <div class="row form-group">
-                    <div class="col-sm-4">
-                        <label for="input-first-name">First Name <span class="text-danger">(*)</span></label>
-                    </div>
-                    <div class="col-sm-8">
-                        <input title="Firstname" data-checktype="required|name" data-property="firstName" class="form-control" id="input-first-name" type="text" placeholder="First name ...">
-                        <div class="form-message small valid-feedback">Firstname hợp lệ</div>
-                        <div class="form-message small invalid-feedback"></div>
-                        <small class="form-text text-muted">Firstname không được để trống</small>
-                    </div>
-                </div>
-                <div class="row form-group">
-                    <div class="col-sm-4">
-                        <label for="input-last-name">Last Name <span class="text-danger">(*)</span></label>
-                    </div>
-                    <div class="col-sm-8">
-                        <input title="Lastname" data-checktype="required|name" data-property="lastName" class="form-control" id="input-last-name" type="text" placeholder="Last name ...">
-                        <div class="form-message small valid-feedback">Lastname hợp lệ</div>
-                        <div class="form-message small invalid-feedback"></div>
-                        <small class="form-text text-muted">Lastname không được để trống</small>
-                    </div>
+                    <h4>Luật chơi</h4>
                 </div>
                 <div class="row form-group">
                     <div class="col-sm-12">
-                        <button class="btn btn-success" id="button-casino-dice">Bắt đầu quay</button>
-                    </div>
-                </div>
-                <div class="row form-group">
-                    <div class="col-sm-3">
-                        Luật chơi
-                    </div>
-                    <div class="col-sm-9">
                         <ul>
                             <li>Nếu kết quả &lt;= 3 : Bạn sẽ không nhận được gì cả</li>
                             <li>Nếu kết quả &gt;= 4 : : Bạn sẽ nhận được phần thưởng là một voucher</li>
-                            <li>Giá trị Voucher sẽ là 10 x Số lần liên tiếp bạn quay có kết quả >= 4 (Ví dụ : Bạn quay 2 lần liên tiếp >= 4 thì lần 2 sẽ nhận được voucher có giá trị là 20%, lần 3 sẽ là 30%</li>
+                            <li>Giá trị Voucher sẽ là 10 x Số lần liên tiếp bạn quay có kết quả >= 4 (Ví dụ : Bạn quay 2 lần liên tiếp >= 4 thì lần 2 sẽ nhận được voucher có giá trị là 20%, lần 3 sẽ là 30%)</li>
                             <li>Giá trị voucher tối đa nhận được là 50%</li>
                             <li>Ngoài ra bạn sẽ nhận được phần thưởng đặc biệt khi quay liên tiếp 3 lần có kết quả >= 4</li>
                         </ul>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <h4>Thay đổi thông tin người chơi</h4>
+                </div>
+                <form action="/users/{{user._id}}?_method=PUT" method="POST" name="change-user">
+                    <div class="row form-group">
+                        <div class="col-sm-4">
+                            <label for="input-first-name">First Name <span class="text-danger">(*)</span></label>
+                        </div>
+                        <div class="col-sm-8">
+                            <input title="Firstname" name="firstName" data-checktype="required|name" data-property="firstName" class="form-control" id="input-first-name" value="{{user.firstName}}" type="text" placeholder="First name ...">
+                            <div class="form-message small valid-feedback">Firstname hợp lệ</div>
+                            <div class="form-message small invalid-feedback"></div>
+                            <small class="form-text text-muted">Firstname không được để trống</small>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-sm-4">
+                            <label for="input-last-name">Last Name <span class="text-danger">(*)</span></label>
+                        </div>
+                        <div class="col-sm-8">
+                            <input title="Lastname" name="lastName" data-checktype="required|name" data-property="lastName" class="form-control" value="{{user.lastName}}" id="input-last-name" type="text" placeholder="Last name ...">
+                            <div class="form-message small valid-feedback">Lastname hợp lệ</div>
+                            <div class="form-message small invalid-feedback"></div>
+                            <small class="form-text text-muted">Lastname không được để trống</small>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col text-center">
+                            <button id="btn-change-info-user" type="submit" class="btn btn-success">Thay đổi</button>
+                        </div>
+                    </div>
+                </form>
+                <div class="row form-group">
+                    <h4>Đăng xuất</h4>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-12 text-center">
+                        <a href="/auth/logout"><button class="btn btn-success">Đăng xuất</button></a>
                     </div>
                 </div>
             </div>
             <div class="col-sm-4 text-center">
                 <div class="row form-group">
                     <div class="col-sm-12">
-
+                        <button class="btn btn-success" id="button-casino-dice">Bắt đầu quay</button>
                     </div>
                 </div>
                 <div class="row form-group">
@@ -103,7 +93,9 @@
                     <div class="col-sm-12 text-center">
                         <h4>Tra cứu kết quả đã quay tại đây</h4>
                     </div>
-                    <input type="text" class="form-control mb-3" placeholder="Điền Id result cần check vào đây">
+                    <div class="col-sm-12 text-center">
+                        <input type="text" class="form-control mb-3" placeholder="Điền Id result cần check vào đây">
+                    </div>
                     <div class="col-sm-12 text-center mb-4">
                         <button class="btn btn-success">Tra cứu</button>
                     </div>
@@ -114,14 +106,12 @@
                         <p title="prize">&#9673; Phần thưởng khác</p>
                     </div>
                 </div>
-
             </div>
         </div>
         <div class="row form-group my-5">
-            <div id="button-history-data" class="col-sm-12 text-center my-3">
-                <p class="h2">Thống kê lịch sử quay theo userName</p> 
+            <div class="col-sm-12 text-center my-3">
+                <p class="h2">Thống kê lịch sử quay</p> 
             </div>
-            <input id="inp-history-data-username" type="text" class="form-control mb-3" placeholder="Điền userName cần check vào đây">
             <div id="button-history-data" class="col-sm-12 text-center mt-2">
                 <button title="dices" class="btn btn-success">Dice History</button>
                 <button title="vouchers"class="btn btn-info">Voucher History</button>
@@ -139,10 +129,19 @@
     <div class="loading-bar"></div>
 <script>
     /*** REGION 1 - Global variables - Vùng khai báo biến, hằng số, tham số TOÀN CỤC */
-        var gUsernameRule = `1. Không được có dấu cách,chỉ 1 từ dính liền duy nhất \r\n` + 
-                            `2. Trong khoảng 6-15 ký tự và ký tự đầu không được là số\n`+
-                            `3. Tất cả các ký tự phải viết thường\n`+
-                            `4. Chỉ bao gồm chữ và số, không được chứa ký tự đặc biệt`
+    function getUserInfo () {
+        var user = {{{json user}}}
+        let info = {
+            getUserId : () => user._id,
+            getUserName : () => user.userName,
+            getFirstName : () => user.firstName,
+            getLastName : () => user.lastName
+        }
+        return info;
+    }
+    var user = getUserInfo()
+
+
     /*** REGION 2 - Vùng gán / thực thi hàm xử lý sự kiện cho các elements */
     // gán sự kiện click cho nút button 
     $("#button-casino-dice").on("click",onBtnRollDiceResult)
@@ -150,16 +149,27 @@
     $("#button-history-data button").on("click",function(){
         onBtnShowData(this.title)
     })
-    
+
     $("#dice-detail-history button").on("click",function(){
         onBtnHistoryDetail()
     })
+    
 
-    const gDATA_INPUT_REQUIRED_ELEMENT = $("#user-info-input [data-checktype]");
-    const gDATA_INPUT_REQUIRED_CLOSURE = storeInputHTML (...gDATA_INPUT_REQUIRED_ELEMENT)
-    gDATA_INPUT_REQUIRED_ELEMENT.each(function(index){
-        $(this).on("change blur",function() {
-            dynamicCheckDataForm (this,gDATA_INPUT_REQUIRED_CLOSURE)
+    $("form[name=change-user]").on('submit',function(e){
+        e.preventDefault()
+        let form = $(this).serializeArray();
+        let data = {}
+        form.forEach(each => data[each.name] = each.value)
+        $.ajax({
+            url: `https://lucky-dice-app.herokuapp.com/users/${user.getUserId()}`,
+            method : "PUT",
+            dataType : "json",
+            data : data,
+            success : (value) => {
+                alert ("Đổi thành công")
+                location.reload();
+            },
+            error : (err) => console.log(err)
         })
     })
 
@@ -173,31 +183,17 @@
     function onBtnRollDiceResult() {
         // Khai báo cục bộ
         var vUserInfo = {
-            userName : "",
-            firstName : "",
-            lastName : ""
+            userName : user.getUserName()
         };
 
-        // B1 : Thu thập data
-        getDataPlayerInput(vUserInfo);
-
-        // B2 : Validate data 
-        var vIsDataCheck = checkDataPlayer(vUserInfo);
-
-        // B3 : Call API 
-        vIsDataCheck ? callApiDice(vUserInfo) : "";
+        callApiDice(vUserInfo)
     }
     
     function onBtnShowData (paramTypeData) {
         
         // Khai báo cục bộ
-        var userName = $("#inp-history-data-username").val()
-
-        if (!userName) {
-            alert("Chưa điền username")
-        } else {
-            getHistoryData(paramTypeData,userName)
-        }
+        var userName = user.getUserName()
+        getHistoryData(paramTypeData,userName)
 
         async function getHistoryData(paramTypeData,paramUserName) {
             const vHISTORY_DATA = {
@@ -216,7 +212,7 @@
                 .then (result => {
                     if (result[paramTypeData].length == 0 ) {
                         alert ("Không tồn tại data với User này")
-                        return
+                        return;
                     }
                     exportDataToTable (paramTypeData,result[paramTypeData])
                 })
@@ -236,37 +232,7 @@
     }
 
     /*** REGION 4 - Common funtions - Vùng khai báo hàm dùng chung trong toàn bộ chương trình*/
-    
-    function getDataPlayerInput (paramUserInfo) {
-        $("#user-info-input input").each(function(){
-            paramUserInfo[this.dataset.property] = this.value;
-        })
-    }
-   
-    function checkDataPlayer (paramUserInfo) {
-        try {
-            let bInputError = "";
-
-            gDATA_INPUT_REQUIRED_ELEMENT.each(function(index){
-
-                // Invalid form bootstrap 4 , nested function , closure 
-                // dynamicCheckDataForm (element,checktype,title)
-                dynamicCheckDataForm (this,gDATA_INPUT_REQUIRED_CLOSURE)
-            });
-
-            // Check data lỗi
-            bInputError = checkDataValid (gDATA_INPUT_REQUIRED_CLOSURE.getAllElement(),gDATA_INPUT_REQUIRED_CLOSURE)
-
-            if (bInputError) {
-                throw (bInputError);
-            }
-        }
-        catch (err) {
-           return false;
-        }
-        return true;
-   }
-
+       
     async function callApiDice (paramUserInfo) {    
         
         document.body.className="loading";
@@ -415,7 +381,7 @@
                     var bOption = ``;
                     if(bOptionData) {for (let bValue of bOptionData) {
                         bOption += `<option value=${bValue[0]}>${bValue[1]}</option>\n`
-                    }}
+                    } }
                     $(this).html(`<select class="form-control form-control-sm text-left" style="font-family: 'FontAwesome', Helvetica Neue"></select>`)
                             .on("change","select",function(){
                                 var regex = this.value == "" ? "" : '^\\b' + this.value + '\\b$'
@@ -446,103 +412,6 @@ function loadDataToTable (paramTable,paramData) {
     paramTable.clear();
     paramTable.rows.add(paramData);
     paramTable.draw();
-}
-
-function checkDataValid (paramElementCheck,paramAllElement,paramInputObj) {
-  const vElementCheck = [...paramElementCheck];
-  let vErrorDetail = {
-    required : (value,title) => 
-              !value ? `${title} chưa được điền hoặc chọn` : "",
-
-    email : (value,title) => 
-            !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value) ? 
-            `${title} nhập vào không hợp lệ` : "",
-
-    name : (value,title) => !/^[\p{L}\s]+[\p{L}]\s?$/u.test(value) ? 
-    `${title} nhập vào không hợp lệ (Chỉ gồm chữ, không có số và ký tự đặc biệt)` : "",
-
-    phone : (value,title) => !/^[0]{1}[35789]{1}[0-9]{8}$/.test(value) ? 
-            `${title} nhập vào không hợp lệ` : "",
-
-    min : (number,value,title) => value.length < number ? 
-          `${title} phải có ít nhất ${number} ký tự` : "",
-
-    max : (number,value,title) => value.length > number ? 
-          `${title} chỉ có nhiều nhất ${number} ký tự` : "",
-
-    username : (value,title) => !/^[a-z]{1}[a-z0-9]{5,14}$/.test(value) ? `${title} không hợp lệ` : "",
-
-    password : (value,title) => !value ? `${title} không hợp lệ` : "",
-
-    passwordrecheck : (value,recheckvalue,title) => value != recheckvalue ? 
-                      `${title} và password phải trùng khớp nhau` : "", 
-
-    // Updating
-  };
-
-  var vErrorCheck = "";
-
-  paramElementCheck.forEach((value) => {
-    let bIndex = paramAllElement.findIndexElementByNode(value);
-    let bCheckType = paramAllElement.getAttributeValue(bIndex,"data-checktype");
-    let bTitle = paramAllElement.getAttributeValue(bIndex,"title");
-    let bValueCheck = value.value.trim();
-    let bError = "";
-    let bCheckTypeDetail = bCheckType.split("|");
-    let bCheckIndex = 0;
-
-    while (!bError && bCheckIndex < bCheckTypeDetail.length) {
-      if (bCheckTypeDetail[bCheckIndex].includes(":") == true) {     
-        var bTypeWithNumber = bCheckTypeDetail[bCheckIndex].split(":");
-        bError = vErrorDetail[bTypeWithNumber[0]](bTypeWithNumber[1],bValueCheck,bTitle);
-        vErrorCheck += bError ? bError + `\n` : "";
-      } else {
-          bError = vErrorDetail[bCheckTypeDetail[bCheckIndex]](bValueCheck,bTitle);
-          vErrorCheck += bError ? bError + `\n` : "";
-      }
-      bCheckIndex ++ ;
-    };
-  });
-  return vErrorCheck;
-}
-
-function dynamicCheckDataForm (paramElement,paramAllElement) {
-  var vResult = "";
-  paramElement.classList.remove("is-invalid");
-  paramElement.classList.remove("is-valid")
-    vResult = checkDataValid ([paramElement],paramAllElement)
-    if (vResult) {
-      paramElement.classList.add("is-invalid");
-      $(paramElement).parent().children(".invalid-feedback").html(vResult);
-      return;
-    } 
-  paramElement.classList.add("is-valid");
-}
-
-// Closure ứng dụng
-function storeInputHTML () {
-  // argument không phải là 1 Array mà chỉ look-like array nên phải dùng spread ES6 để chuyển lại thành array
-  const vInputElement = [...arguments];
-  const vAllAttributeElement = vInputElement.map((element) => {
-    var bAllAttributeObj = {};
-    element.getAttributeNames().forEach((attributeName) =>
-      bAllAttributeObj[attributeName] = element.getAttribute(attributeName));
-    return bAllAttributeObj;
-  });
-  const vTitleValueElement = vInputElement.map((element) => element.title);
-  const vIdValueElement = vInputElement.map((element) => element.id);
-
-  const vGetAttributeElement = {
-    getAllElementJquery : () => $(vInputElement),
-    getAllElement : () => vInputElement,
-    getInput : (index) => vInputElement[index], 
-    getAttributeValue : (index,attribute) => vAllAttributeElement[index][attribute],
-    findIndexByAttributeExactValue : (attribute,value) => vAllAttributeElement.findIndex(allAttribute => allAttribute[attribute] == value),
-    findIndexByAttributeContainValue : (attribute,value) => vAllAttributeElement.findIndex(allAttribute => allAttribute[attribute].includes(value) == true),
-    findIndexElementByNode : (element) => vInputElement.findIndex((allElement) => allElement.isSameNode(element) == true)
-  }
-
-  return vGetAttributeElement;
 }
 
 </script>

@@ -22,9 +22,9 @@ class RollController {
         
         let user = req.body;
     
-        if (!user.userName || !user.firstName || !user.lastName) {
+        if (!user.userName) {
             return res.status(400).json({
-                message : "Chưa có đầy đủ userName, firstName và lastName"
+                message : "Chưa có userName"
             })
         }
     
@@ -32,16 +32,19 @@ class RollController {
     
         await new Promise ((success,failed) => {userModel.findOne({userName : user.userName}).exec((err,data) => {
             if (data === null) {
-                let body = {
-                    ...user
-                }
-                userModel.create(body,(err,data) => {
-                    success(data)
-                })
+                failed()
             } else {
                 success(data)
             }
-        })}).then ((value) => userResult = value)
+        })})
+            .then ((value) => userResult = value)
+            .catch(() => {
+                res.status(400).json({
+                    message : "User không tồn tại trong hệ thống"
+                })
+                return;
+                }
+            )
     
         let diceResult = getRandomRoll();
         let voucherResult = null;

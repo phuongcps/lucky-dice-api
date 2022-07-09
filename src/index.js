@@ -26,7 +26,12 @@ database.connect();
 
 // Template engine
 app.engine('hbs',engine({
-    extname:'hbs'
+    extname:'hbs',
+    helpers : {
+        json: function(obj) {
+            return JSON.stringify(obj);
+        }
+    }
 }));
 app.set('view engine','hbs');
 app.set('views',path.join(__dirname, 'resources', 'views'))
@@ -44,10 +49,12 @@ route(app)
 
 app.get("/",(req,res) => {
     if (req.session.passport) {
-        res.render("home",{firstName : req.user.firstName,lastName : req.user.lastName})
+        let user = req.user.toObject()
+        res.render("home",{user})
     } else {
         res.redirect("/auth/login")
     }
+    //res.render("home")
     //console.log("test")
     //res.sendFile(path.join(`${__dirname}/resources/views/homepage/Project Lucky Dice - Bootstrap.html`))
     //res.send ("Welcome to Heroku - Phương")

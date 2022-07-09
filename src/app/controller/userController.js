@@ -41,6 +41,7 @@ class UserController {
         
         // Thu thập dữ liệu
         let body = req.body;
+        console.log(body)
     
         // Kiểm tra vài dữ liệu
         User.findByIdAndUpdate(id,body,{new : true},baseController.get(req,res));
